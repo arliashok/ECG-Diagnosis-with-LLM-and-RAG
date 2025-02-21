@@ -1,6 +1,6 @@
 # Replication of Zero-Shot ECG Diagnosis with Large Language Models and Retrieval-Augmented Generation: ECG Diagnosis Using Feature Extraction, Knowledge Retrieval, and LLM Inference
 
-This project aims to replicate and extend the methodology presented in [Paper] (https://proceedings.mlr.press/v225/yu23b/yu23b.pdf).
+This project aims to replicate and extend the methodology presented in [Paper](https://proceedings.mlr.press/v225/yu23b/yu23b.pdf).
 The implementation integrates ECG feature extraction, retrieval-augmented generation (RAG), and large language model (LLM) inference to diagnose ECG abnormalities.
 
 We closely follow the original paper's approach while making necessary adaptations for implementation. Architecture diagrams, methodology breakdowns, and code references are included to facilitate reproducibility.
@@ -20,25 +20,22 @@ The architecture of this pipeline is illustrated below:
 ## 2. Pipeline Breakdown
 
 ### Step 1: Construction of Domain Knowledge Database
- Goal: Create a knowledge base of ECG-related research papers and textbooks for retrieval-based learning.
+**Goal: Create a knowledge base of ECG-related research papers and textbooks for retrieval-based learning.**
 
 Process:
-
 Collect ECG-related literature from papers and books.
 Extract text embeddings using an embedding model.
 Store embeddings in ChromaDB for retrieval.
 
 Key Components:
-
 Database (Papers/Books) → Contains medical literature on ECG.
 Text Embedding Extractor → Converts text into embeddings.
 ChromaDB → Stores embeddings for retrieval.
 
 ### Step 2: Feature Extraction and Prompt Creation
-  Goal: Extract ECG features and generate structured prompts for LLM inference.
+**Goal: Extract ECG features and generate structured prompts for LLM inference.**
 
-  Process:
-
+Process:
 Input raw ECG data from patient recordings.
 Use Neurokit2 to extract key waveform features (P-wave, QRS complex, etc.).
 Convert ECG features into embeddings for similarity-based retrieval.
@@ -46,7 +43,6 @@ Select relevant medical knowledge based on ECG feature embeddings.
 Generate a combined prompt (ECG features + retrieved knowledge).
 
 Key Components:
-
 Neurokit2 Feature Extractor → Extracts ECG waveform components.
 Text Embedding Extractor → Converts features into embeddings.
 Feature Selection → Retrieves similar cases from ChromaDB.
@@ -54,16 +50,14 @@ User/System Prompt Generator → Merges user input and extracted knowledge.
 
 
 ### Step 3: LLM Inference for Diagnosis
-  Goal: Use an LLM to generate ECG interpretations based on structured prompts.
+**Goal: Use an LLM to generate ECG interpretations based on structured prompts.**
 
-  Process:
-
+Process:
 Feed the retrieved knowledge and ECG features into the LLM.
 The LLM generates diagnostic interpretations.
 Output is evaluated against expert-labeled ECG reports.
   
-  Key Components:
-
+Key Components:
 LLM Model (e.g., GPT-4, Med-PaLM) → Generates ECG diagnoses.
 Prompting System → Structures queries based on RAG.
 Evaluation Metrics → Accuracy, Sensitivity, Specificity, F1-score.
@@ -72,6 +66,7 @@ Evaluation Metrics → Accuracy, Sensitivity, Specificity, F1-score.
 
 ### Project Structure
 
+``` python
 
 📂 LLM_APP  
  ├── 📂 __pycache__/              # Compiled Python files  
@@ -92,7 +87,7 @@ Evaluation Metrics → Accuracy, Sensitivity, Specificity, F1-score.
  ├── README.md                      # Documentation  
  ├── requirements.txt               # Dependencies  
 
-``
+```
 
 ## 4. How to Run
 ### Step 1: Install Dependencies
@@ -112,5 +107,5 @@ streamlit run app.py
 
 ## 4. References
 Zero-Shot ECG Diagnosis with Large Language Models and
-Retrieval-Augmented Generation - [Paper] (https://proceedings.mlr.press/v225/yu23b/yu23b.pdf).
+Retrieval-Augmented Generation - [Paper](https://proceedings.mlr.press/v225/yu23b/yu23b.pdf).
 Related research on ECG feature extraction, RAG, and medical AI.
