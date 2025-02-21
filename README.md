@@ -14,7 +14,7 @@ Retrieval-Augmented Generation (RAG) for feature-based query selection.
 LLM inference for AI-driven ECG diagnosis.
 The architecture of this pipeline is illustrated below:
 
-![image alt](https://github.com/godbright/ECG-Diagnosis-with-LLM-and-RAG/blob/8fef990d1e4a4c7def37e71d0bd4c3c97ccd8cb7/Screenshot%202025-02-21%20at%2021.12.36.png)
+![image alt](https://github.com/godbright/ECG-Diagnosis-with-LLM-and-RAG/blob/c5c0c837fcaf02d1cee1dc8b79845a7da9284c7e/architecture_diagram)
 
 
 ## 2. Pipeline Breakdown
