@@ -3,15 +3,40 @@ import neurokit2 as nk  # For ECG preprocessing
 import chromadb  # For embedding storage
 from sentence_transformers import SentenceTransformer
 import re
-
+from transformers import AutoTokenizer, AutoModel
+import torch
+# import numpy as np
 
 
 
 # Create Embeddings for Medical Knowledge Base
-def create_embeddings(texts):
-    model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-    embeddings = model.encode(texts, convert_to_tensor=True)
-    return embeddings
+def create_embeddings(texts, model_name='emilyalsentzer/Bio_ClinicalBERT'):
+    """
+    Generate embeddings using a biomedical domain-specific model.
+
+    Parameters:
+        texts (List[str]): List of text chunks.
+        model_name (str): Hugging Face model ID for domain-specific BERT.
+
+    Returns:
+        torch.Tensor: Tensor of text embeddings.
+    """
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModel.from_pretrained(model_name)
+    model.eval()
+
+    embeddings = []
+
+    with torch.no_grad():
+        for text in texts:
+            inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True, max_length=512)
+            outputs = model(**inputs)
+            # Average last hidden state over tokens
+            last_hidden = outputs.last_hidden_state
+            embedding = last_hidden.mean(dim=1).squeeze()
+            embeddings.append(embedding)
+
+    return torch.stack(embeddings)
 
 
 # Store Embeddings in ChromaDB
